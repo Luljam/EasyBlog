@@ -1,4 +1,7 @@
-﻿using EasyBlog.Web.Core;
+﻿using Autofac;
+using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
+using EasyBlog.Web.Core;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -22,6 +25,15 @@ namespace EasyBlog.Web
 
             if (Application["ModuleEvents"] == null)
                 Application["ModuleEvents"] = extensibilityManager.GetModuleEvents();
+
+            ContainerBuilder builder = new ContainerBuilder();
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterApiControllers(typeof(MvcApplication).Assembly); //Register WebApi Controllers
+
+            IContainer container = builder.Build();
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container); //Configuracao do container para WebApi
         }
     }
 }
