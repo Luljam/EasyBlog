@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using EasyBlog.Data;
 using EasyBlog.Web.Core;
 using System;
 using System.Linq;
@@ -31,6 +32,10 @@ namespace EasyBlog.Web
             builder.RegisterApiControllers(typeof(MvcApplication).Assembly).InstancePerRequest(); //Register WebApi Controllers
 
             builder.RegisterType<ExtensibilityManager>().As<IExtensibilityManager>().SingleInstance(); // Registro de classe como singleton
+
+            builder.RegisterType<BlogPostRepository>().As<IBlogPostRepository>()
+                .WithParameter(new TypedParameter(typeof(string), "easyBlog")); // Informa ao Autofac sempre que encontrar necessidade de resolver a interface IBlogRepository ele encontrará um argumento de string no construtor e use a string easyBlog 
+            //.WithParameter(new NamedParameter("connectionStringNamed", "easyBlog")); // também pode ser usado assim
 
             IContainer container = builder.Build();
 
