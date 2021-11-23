@@ -179,6 +179,7 @@
     <Compile Include="Controllers\MVC\HomeController.cs" />
     <Compile Include="Core\ExtensibilityManager.cs" />
     <Compile Include="Core\IExtensibilityManager.cs" />
+    <Compile Include="Core\RepositoryRegistrationModule.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
