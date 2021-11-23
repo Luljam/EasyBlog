@@ -10,7 +10,7 @@ namespace EasyBlog.Web.Core
     public class ExtensibilityManager : IExtensibilityManager
     {
         ModuleEvents _ModuleEventes;
-        public ModuleEvents ModuleEventes
+        public ModuleEvents ModuleEvents
         {
             get { return _ModuleEventes; }
         }
