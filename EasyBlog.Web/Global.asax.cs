@@ -27,8 +27,8 @@ namespace EasyBlog.Web
                 Application["ModuleEvents"] = extensibilityManager.GetModuleEvents();
 
             ContainerBuilder builder = new ContainerBuilder();
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            builder.RegisterApiControllers(typeof(MvcApplication).Assembly); //Register WebApi Controllers
+            builder.RegisterControllers(typeof(MvcApplication).Assembly).InstancePerRequest();
+            builder.RegisterApiControllers(typeof(MvcApplication).Assembly).InstancePerRequest(); //Register WebApi Controllers
 
             IContainer container = builder.Build();
 
