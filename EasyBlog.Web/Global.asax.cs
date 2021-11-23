@@ -1,7 +1,10 @@
 ﻿using Autofac;
+using Autofac.Configuration;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using EasyBlog.Data;
 using EasyBlog.Web.Core;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -30,7 +33,15 @@ namespace EasyBlog.Web
             builder.RegisterControllers(typeof(MvcApplication).Assembly).InstancePerRequest();
             builder.RegisterApiControllers(typeof(MvcApplication).Assembly).InstancePerRequest(); //Register WebApi Controllers
 
-            builder.RegisterType<ExtensibilityManager>().As<IExtensibilityManager>().SingleInstance(); // Registro de classe como singleton
+            //builder.RegisterType<ExtensibilityManager>().As<IExtensibilityManager>().SingleInstance(); // Registro de classe como singleton
+            //builder.RegisterModule<RepositoryRegistrationModule>();
+            
+            IConfigurationBuilder config = new ConfigurationBuilder(); // Instancia do Microsoft ConfigurationBuilder
+            config.AddJsonFile("autofac.json"); // Arquivo que contem os registros de classes
+
+            ConfigurationModule module = new ConfigurationModule(config.Build()); // Instancia e registro da ConfigurationModule
+
+            builder.RegisterModule(module); // Registrando o módulo as coisas que encontrar na configuração para a qual está apontando
 
             IContainer container = builder.Build();
 
