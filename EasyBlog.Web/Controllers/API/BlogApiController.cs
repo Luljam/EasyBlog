@@ -15,12 +15,14 @@ namespace EasyBlog.Web.Controllers.API
     [RoutePrefix("api/blog")]
     public class BlogApiController : ApiController
     {
-        public BlogApiController()
+        public BlogApiController(IComponentLocator componentLocator, IExtensibilityManager extensibilityManager)
         {
-            _ExtensibilityManager = new ExtensibilityManager();
-            _ModuleEvents = HttpContext.Current.Application["ModuleEvents"] as ModuleEvents;
+            _ComponentLocator = componentLocator;
+            _ExtensibilityManager = extensibilityManager;
+            _ModuleEvents = _ExtensibilityManager.ModuleEvents;
         }
-        
+
+        IComponentLocator _ComponentLocator;
         IExtensibilityManager _ExtensibilityManager;
         ModuleEvents _ModuleEvents;
         
@@ -34,7 +36,7 @@ namespace EasyBlog.Web.Controllers.API
 
             try
             {
-                IBlogPostRepository blogPostRepository = new BlogPostRepository("easyBlog");
+                IBlogPostRepository blogPostRepository = _ComponentLocator.ResolveComponet<IBlogPostRepository>();
 
                 IEnumerable<BlogPost> blogPosts = blogPostRepository.Get();
 
@@ -56,7 +58,7 @@ namespace EasyBlog.Web.Controllers.API
 
             try
             {
-                IBlogPostRepository blogPostRepository = new BlogPostRepository("easyBlog");
+                IBlogPostRepository blogPostRepository = _ComponentLocator.ResolveComponet<IBlogPostRepository>();
 
                 BlogPost blogPost = blogPostRepository.GetComplete(blogPostId);
 
@@ -87,7 +89,7 @@ namespace EasyBlog.Web.Controllers.API
                 
                 if (!preArgs.Cancel)
                 {
-                    IBlogPostRepository blogPostRepository = new BlogPostRepository("easyBlog");
+                    IBlogPostRepository blogPostRepository = _ComponentLocator.ResolveComponet<IBlogPostRepository>();
 
                     blogPost = blogPostRepository.Add(blogPost);
 
@@ -124,7 +126,7 @@ namespace EasyBlog.Web.Controllers.API
 
                 if (!preArgs.Cancel)
                 {
-                    IBlogCommentRepository blogCommentRepository = new BlogCommentRepository("easyBlog");
+                    IBlogCommentRepository blogCommentRepository = _ComponentLocator.ResolveComponet<IBlogCommentRepository>();
 
                     blogComment.CommentBody = preArgs.CommentReplacement;
                     blogComment = blogCommentRepository.Add(blogComment);

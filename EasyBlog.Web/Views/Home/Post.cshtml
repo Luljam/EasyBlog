@@ -1,6 +1,6 @@
 ﻿@model EasyBlog.Web.Models.BlogPostModel
 @{
-    ViewBag.Title = "Blog Post";
+    var localStrings = DependencyResolver.Current.GetService<EasyBlog.Web.Core.ILocalStrings>();
 }
 @section scripts
 {
@@ -13,7 +13,7 @@
     var viewModel = new postViewModel(blogPostId);
     ko.applyBindings(viewModel, $("#post")[0]);
 }
-<h2>Blog Post</h2>
+<h2>@localStrings.PostTitle</h2>
 
 <div id="post">
     <div class="panel panel-primary" data-bind="with: blogPost">

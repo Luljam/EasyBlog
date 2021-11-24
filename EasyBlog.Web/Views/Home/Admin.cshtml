@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Admin";
+    var localStrings = DependencyResolver.Current.GetService<EasyBlog.Web.Core.ILocalStrings>();
 }
 @section scripts
 {
@@ -10,7 +10,7 @@
     var viewModel = new adminViewModel();
     ko.applyBindings(viewModel, $("#admin")[0]);
 }
-<h2>Admin</h2>
+<h2>@localStrings.NewPostTitle</h2>
 
 <div id="admin">
     <div class="panel panel-primary">
