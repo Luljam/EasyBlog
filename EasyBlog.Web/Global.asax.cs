@@ -23,18 +23,10 @@ namespace EasyBlog.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            //IExtensibilityManager extensibilityManager = new ExtensibilityManager(); // nao precisa mais pq esta sendo registrada pelo Autofac
-
-            //if (Application["ModuleEvents"] == null)
-            //    Application["ModuleEvents"] = extensibilityManager.GetModuleEvents();
-
+           
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly).InstancePerRequest();
             builder.RegisterApiControllers(typeof(MvcApplication).Assembly).InstancePerRequest(); //Register WebApi Controllers
-
-            //builder.RegisterType<ExtensibilityManager>().As<IExtensibilityManager>().SingleInstance(); // Registro de classe como singleton
-            //builder.RegisterModule<RepositoryRegistrationModule>();
             
             IConfigurationBuilder config = new ConfigurationBuilder(); // Instancia do Microsoft ConfigurationBuilder
             config.AddJsonFile("autofac.json"); // Arquivo que contem os registros de classes
@@ -43,6 +35,14 @@ namespace EasyBlog.Web
 
             builder.RegisterModule(module); // Registrando o módulo as coisas que encontrar na configuração para a qual está apontando
 
+            builder.RegisterFilterProvider(); // manipula os registros de quaisquer filtros MVC
+
+            builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration); // manipula os registros de quaisquer filtros para API
+
+            builder.RegisterType<LogMvcActionAttribute>().PropertiesAutowired();
+
+            builder.RegisterType<LogWebApiAction>().PropertiesAutowired();
+
             IContainer container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
@@ -50,6 +50,10 @@ namespace EasyBlog.Web
 
             IExtensibilityManager extensibilityManager = container.Resolve<IExtensibilityManager>(); // resolvendo a partir do container garantindo que o container instancie e persista a classe
             extensibilityManager.GetModuleEvents(); // Chamada para inicializar a variável criada e armazená-la no próprio ExtensibilityManager
+
+            // Filtros Globais
+            GlobalFilters.Filters.Add(container.Resolve<LogMvcActionAttribute>());
+            GlobalConfiguration.Configuration.Filters.Add(container.Resolve<LogWebApiAction>());
         }
     }
 }

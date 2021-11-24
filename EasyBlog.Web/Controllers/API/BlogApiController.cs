@@ -52,6 +52,7 @@ namespace EasyBlog.Web.Controllers.API
 
         [HttpGet]
         [Route("post/{blogPostId}")]
+        // [LogWebApiAction]
         public HttpResponseMessage FetchPost(HttpRequestMessage request, int blogPostId)
         {
             HttpResponseMessage response = null;
