@@ -39,6 +39,10 @@ namespace EasyBlog.Web
 
             builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration); // manipula os registros de quaisquer filtros para API
 
+            builder.RegisterType<LogMvcActionAttribute>().PropertiesAutowired();
+
+            builder.RegisterType<LogWebApiAction>().PropertiesAutowired();
+
             IContainer container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
@@ -46,6 +50,10 @@ namespace EasyBlog.Web
 
             IExtensibilityManager extensibilityManager = container.Resolve<IExtensibilityManager>(); // resolvendo a partir do container garantindo que o container instancie e persista a classe
             extensibilityManager.GetModuleEvents(); // Chamada para inicializar a variável criada e armazená-la no próprio ExtensibilityManager
+
+            // Filtros Globais
+            GlobalFilters.Filters.Add(container.Resolve<LogMvcActionAttribute>());
+            GlobalConfiguration.Configuration.Filters.Add(container.Resolve<LogWebApiAction>());
         }
     }
 }

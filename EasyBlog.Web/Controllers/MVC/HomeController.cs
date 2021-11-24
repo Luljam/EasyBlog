@@ -21,7 +21,7 @@ namespace EasyBlog.Web.Controllers
 
         [Route("index")]
         [Route("~/")]
-        [LogMvcAction]
+        //[LogMvcAction]
         public ActionResult Index()
         {
             IEnumerable<BlogPost> blogPosts = _BlogPostRepository.Get();
