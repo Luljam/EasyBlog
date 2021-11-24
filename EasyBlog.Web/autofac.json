@@ -1,7 +1,8 @@
 {
   "defaultAssembly": "EasyBlog.Web",
   "modules": [
-    { "type":  "EasyBlog.Web.Core.RepositoryRegistrationModule"}
+    { "type": "EasyBlog.Web.Core.RepositoryRegistrationModule" },
+    { "type": "EasyBlog.Web.Core.ExtensibilityRegistration" }
   ],
   "components": [
     {

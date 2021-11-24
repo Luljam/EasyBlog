@@ -244,6 +244,7 @@
     <Compile Include="Controllers\MVC\HomeController.cs" />
     <Compile Include="Core\ComponentLocator.cs" />
     <Compile Include="Core\ExtensibilityManager.cs" />
+    <Compile Include="Core\ExtensibilityRegistration.cs" />
     <Compile Include="Core\IConfigurationFactory.cs" />
     <Compile Include="Core\IExtensibilityManager.cs" />
     <Compile Include="Core\LocalStrings.cs" />
