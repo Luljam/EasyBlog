@@ -37,6 +37,14 @@
           "type": "EasyBlog.Web.Core.ILocalStrings"
         }
       ]
+    },
+    {
+      "type": "EasyBlog.Web.Core.TraceLogger",
+      "services": [
+        {
+          "type": "EasyBlog.Web.Core.ILogger"
+        }
+      ]
     }
   ]
 }

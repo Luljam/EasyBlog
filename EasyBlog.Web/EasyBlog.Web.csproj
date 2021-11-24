@@ -247,8 +247,10 @@
     <Compile Include="Core\ExtensibilityRegistration.cs" />
     <Compile Include="Core\IConfigurationFactory.cs" />
     <Compile Include="Core\IExtensibilityManager.cs" />
+    <Compile Include="Core\ILogger.cs" />
     <Compile Include="Core\LocalStrings.cs" />
     <Compile Include="Core\RepositoryRegistrationModule.cs" />
+    <Compile Include="Core\`LogMvcActionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
