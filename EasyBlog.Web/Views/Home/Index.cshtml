@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<EasyBlog.Support.Entities.BlogPost>
 @{
-    ViewBag.Title = "Blog Posts";
+    var localStrings = DependencyResolver.Current.GetService<EasyBlog.Web.Core.ILocalStrings>();
 }
 
 <div class="jumbotron">
-    <h1>Easy Blog</h1>
+    <h1>@localStrings.PostsTitle</h1>
 </div>
 
 <div>
