@@ -1,3 +1,4 @@
+using Autofac;
 using EasyBlog.Common;
 using EasyBlog.Web.Configuration;
 using System;
@@ -9,11 +10,13 @@ namespace EasyBlog.Web.Core
 {
     public class ExtensibilityManager : IExtensibilityManager
     {
-        public ExtensibilityManager(IConfigurationFactory  configurationFactory)
+        public ExtensibilityManager(IConfigurationFactory  configurationFactory, ILifetimeScope container)
         {
             _ConfigurationFactory = configurationFactory;
+            _Container = container;
         }
 
+        ILifetimeScope _Container;
         IConfigurationFactory _ConfigurationFactory;
         ModuleEvents _ModuleEventes;
         public ModuleEvents ModuleEvents
@@ -33,8 +36,7 @@ namespace EasyBlog.Web.Core
             {
                 foreach (EasyBlogModuleConfigurationElement module in modules)
                 {
-                    IEasyBlogModule moduleType = Activator.CreateInstance(Type.GetType(module.Type)) 
-                        as IEasyBlogModule;
+                    IEasyBlogModule moduleType = _Container.Resolve(Type.GetType(module.Type)) as IEasyBlogModule;
                     if (moduleType != null)
                     {
                         moduleType.Initialize(moduleEvents);
