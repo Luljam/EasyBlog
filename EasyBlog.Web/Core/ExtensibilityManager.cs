@@ -9,6 +9,12 @@ namespace EasyBlog.Web.Core
 {
     public class ExtensibilityManager : IExtensibilityManager
     {
+        public ExtensibilityManager(IConfigurationFactory  configurationFactory)
+        {
+            _ConfigurationFactory = configurationFactory;
+        }
+
+        IConfigurationFactory _ConfigurationFactory;
         ModuleEvents _ModuleEventes;
         public ModuleEvents ModuleEvents
         {
@@ -21,11 +27,11 @@ namespace EasyBlog.Web.Core
         {
             ModuleEvents moduleEvents = new ModuleEvents();
 
-            EasyBlogConfigurationSection config = ConfigurationManager.GetSection("easyBlog")
-                as EasyBlogConfigurationSection;
-            if (config != null)
+            EasyBlogModulesConfigurationElementCollection modules = _ConfigurationFactory.GetModules();
+            
+            if (modules != null)
             {
-                foreach (EasyBlogModuleConfigurationElement module in config.Modules)
+                foreach (EasyBlogModuleConfigurationElement module in modules)
                 {
                     IEasyBlogModule moduleType = Activator.CreateInstance(Type.GetType(module.Type)) 
                         as IEasyBlogModule;
