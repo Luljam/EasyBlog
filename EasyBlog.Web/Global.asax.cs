@@ -23,18 +23,10 @@ namespace EasyBlog.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            //IExtensibilityManager extensibilityManager = new ExtensibilityManager(); // nao precisa mais pq esta sendo registrada pelo Autofac
-
-            //if (Application["ModuleEvents"] == null)
-            //    Application["ModuleEvents"] = extensibilityManager.GetModuleEvents();
-
+           
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly).InstancePerRequest();
             builder.RegisterApiControllers(typeof(MvcApplication).Assembly).InstancePerRequest(); //Register WebApi Controllers
-
-            //builder.RegisterType<ExtensibilityManager>().As<IExtensibilityManager>().SingleInstance(); // Registro de classe como singleton
-            //builder.RegisterModule<RepositoryRegistrationModule>();
             
             IConfigurationBuilder config = new ConfigurationBuilder(); // Instancia do Microsoft ConfigurationBuilder
             config.AddJsonFile("autofac.json"); // Arquivo que contem os registros de classes
@@ -42,6 +34,8 @@ namespace EasyBlog.Web
             ConfigurationModule module = new ConfigurationModule(config.Build()); // Instancia e registro da ConfigurationModule
 
             builder.RegisterModule(module); // Registrando o módulo as coisas que encontrar na configuração para a qual está apontando
+
+            builder.RegisterFilterProvider(); // manipula os registros de quaisquer filtros MVC
 
             IContainer container = builder.Build();
 

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace EasyBlog.Web.Core
 {
-    public class _LogMvcActionAttribute : ActionFilterAttribute
+    public class LogMvcActionAttribute : ActionFilterAttribute
     {
         public ILogger _Logger { private get; set; }
         public override void OnActionExecuted(ActionExecutedContext filterContext)

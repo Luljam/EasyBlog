@@ -1,5 +1,6 @@
 ﻿using EasyBlog.Data;
 using EasyBlog.Support.Entities;
+using EasyBlog.Web.Core;
 using EasyBlog.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace EasyBlog.Web.Controllers
 
         [Route("index")]
         [Route("~/")]
+        [LogMvcAction]
         public ActionResult Index()
         {
             IEnumerable<BlogPost> blogPosts = _BlogPostRepository.Get();
