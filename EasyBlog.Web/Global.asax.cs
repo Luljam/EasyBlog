@@ -37,6 +37,8 @@ namespace EasyBlog.Web
 
             builder.RegisterFilterProvider(); // manipula os registros de quaisquer filtros MVC
 
+            builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration); // manipula os registros de quaisquer filtros para API
+
             IContainer container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

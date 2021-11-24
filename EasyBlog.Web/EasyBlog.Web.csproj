@@ -249,6 +249,7 @@
     <Compile Include="Core\IExtensibilityManager.cs" />
     <Compile Include="Core\ILogger.cs" />
     <Compile Include="Core\LocalStrings.cs" />
+    <Compile Include="Core\LogWebApiAction.cs" />
     <Compile Include="Core\RepositoryRegistrationModule.cs" />
     <Compile Include="Core\LogMvcActionAttribute.cs" />
     <Compile Include="Global.asax.cs">
