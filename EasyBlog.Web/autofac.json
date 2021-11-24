@@ -22,7 +22,7 @@
       ]
     },
     {
-      "type": "EasyBlog.Web.Core.localStrings",
+      "type": "EasyBlog.Web.Core.LocalStrings",
       "services": [
         {
           "type": "EasyBlog.Web.Core.ILocalStrings"

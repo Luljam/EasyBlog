@@ -5,7 +5,7 @@ using System.Web;
 
 namespace EasyBlog.Web.Core
 {
-    public class LocalStrings : ILocatorStrings
+    public class LocalStrings : ILocalStrings
     {
         public string SiteTitle {
             get { return "EasyBlog (DI Enable)";  } 
@@ -25,7 +25,7 @@ namespace EasyBlog.Web.Core
             get { return "New Blog Post"; }
         }
     }
-    public interface ILocatorStrings
+    public interface ILocalStrings
     {
         string SiteTitle { get; }
         string PostsTitle { get; }
