@@ -245,6 +245,7 @@
     <Compile Include="Core\ComponentLocator.cs" />
     <Compile Include="Core\ExtensibilityManager.cs" />
     <Compile Include="Core\IExtensibilityManager.cs" />
+    <Compile Include="Core\LocalStrings.cs" />
     <Compile Include="Core\RepositoryRegistrationModule.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

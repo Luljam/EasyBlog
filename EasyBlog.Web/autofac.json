@@ -20,6 +20,14 @@
           "type": "EasyBlog.Web.Core.IComponentLocator"
         }
       ]
+    },
+    {
+      "type": "EasyBlog.Web.Core.localStrings",
+      "services": [
+        {
+          "type": "EasyBlog.Web.Core.ILocalStrings"
+        }
+      ]
     }
   ]
 }
